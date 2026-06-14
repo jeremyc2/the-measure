@@ -70,7 +70,7 @@ export const homeView = (model: Model): Html => {
 										"text-sm font-bold uppercase tracking-[0.18em] text-pink-600 dark:text-pink-300",
 									),
 								],
-								["Nikki Erlick's speculative premise, discussed in public"],
+								["Book-club essays about The Measure by Nikki Erlick"],
 							),
 							typedHtml.h2(
 								[
@@ -80,16 +80,6 @@ export const homeView = (model: Model): Html => {
 								],
 								[
 									"What would we do if every life arrived with a visible measure?",
-								],
-							),
-							typedHtml.p(
-								[
-									typedHtml.Class(
-										"max-w-3xl text-base leading-7 text-neutral-700 dark:text-zinc-300",
-									),
-								],
-								[
-									"A public static reading companion for interactive book-club essays about The Measure by Nikki Erlick.",
 								],
 							),
 							typedHtml.div(

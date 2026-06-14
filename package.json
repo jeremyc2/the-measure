@@ -1,6 +1,6 @@
 {
 	"name": "the-measure",
-	"description": "A public static Foldkit site for interactive book-club essays about The Measure by Nikki Erlick.",
+	"description": "Foldkit site for book-club essays about The Measure by Nikki Erlick",
 	"type": "module",
 	"scripts": {
 		"dev": "bun run build && bun --hot src/dev-server.ts",

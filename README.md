@@ -1,6 +1,6 @@
 # The Measure
 
-A public static Foldkit site for interactive book-club essays about *The Measure* by Nikki Erlick.
+Foldkit site for book-club essays about The Measure by Nikki Erlick.
 
 The novel's premise is that every adult on earth receives a box containing a string that reveals the length of their life. This repo is the scaffold for a client-rendered reading companion: no database, no authentication.
 
