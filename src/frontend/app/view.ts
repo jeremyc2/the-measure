@@ -37,7 +37,7 @@ const pageTitle = (model: Model): string => {
 
 const pageSubtitle = (model: Model): string | undefined => {
 	if (isHomeRoute(model.route)) {
-		return 'Smart reads, sharp takes, questions and answers, interactive playgrounds... my personal journey through The "Measure".';
+		return "Smart reads, sharp takes, questions and answers, interactive playgrounds... follow my personal reading journey.";
 	}
 
 	if (isPostsRoute(model.route)) {
