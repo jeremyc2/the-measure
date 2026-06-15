@@ -37,7 +37,7 @@ const pageTitle = (model: Model): string => {
 
 const pageSubtitle = (model: Model): string | undefined => {
 	if (isHomeRoute(model.route)) {
-		return "A static, client-rendered place for book-club essays, interactive thought experiments, and explicit AI provenance.";
+		return 'Smart reads, sharp takes, questions and answers, interactive playgrounds... my personal journey through The "Measure".';
 	}
 
 	if (isPostsRoute(model.route)) {
