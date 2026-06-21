@@ -124,9 +124,7 @@ export const homeView = (model: Model): Html => {
 										"text-sm leading-6 text-neutral-700 dark:text-zinc-300",
 									),
 								],
-								[
-									"Future AI-assisted and AI-generated sections render inside this hot pink boundary. Human-authored sections do not.",
-								],
+								["Future AI sections render inside this hot pink boundary."],
 							),
 						],
 					),

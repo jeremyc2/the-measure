@@ -1,11 +1,6 @@
 import { type Html, html } from "foldkit/html";
-import type {
-	BlogPost,
-	PostSection,
-	Provenance,
-} from "../../../shared/the-measure";
-import { provenanceLabel } from "../../../shared/the-measure";
-import { renderCodexComponent } from "../../codex-components/registry";
+import type { BlogPost, PostSection } from "../../../shared/the-measure";
+import { renderInteractiveComponent } from "../../components/registry";
 import {
 	displayTitleClass,
 	hotPinkBoundaryClass,
@@ -15,43 +10,12 @@ import {
 import type { Message } from "../messages";
 import type { Model } from "../model";
 
-const provenanceRowView = (item: Provenance): Html => {
+const provenancePillView = (
+	provenance: BlogPost["attribution"][number],
+): Html => {
 	const typedHtml = html<Message>();
 
-	return typedHtml.li(
-		[
-			typedHtml.Class(
-				"grid gap-1 rounded-lg border border-pink-200 p-3 dark:border-pink-900",
-			),
-		],
-		[
-			typedHtml.div(
-				[typedHtml.Class("flex flex-wrap items-center gap-2")],
-				[
-					typedHtml.span(
-						[typedHtml.Class(provenancePillClass)],
-						[provenanceLabel(item.kind)],
-					),
-					typedHtml.span(
-						[
-							typedHtml.Class(
-								"text-xs font-semibold uppercase tracking-[0.12em] text-neutral-500 dark:text-zinc-400",
-							),
-						],
-						[item.area],
-					),
-				],
-			),
-			typedHtml.p(
-				[
-					typedHtml.Class(
-						"text-sm leading-6 text-neutral-700 dark:text-zinc-300",
-					),
-				],
-				[item.note],
-			),
-		],
-	);
+	return typedHtml.span([typedHtml.Class(provenancePillClass)], [provenance]);
 };
 
 const provenanceSummaryView = (post: BlogPost): Html => {
@@ -78,14 +42,14 @@ const provenanceSummaryView = (post: BlogPost): Html => {
 							),
 						],
 						[
-							"This summary is required before the post body so readers can see what is human-authored, AI-assisted, or AI-generated.",
+							"This summary is required before the post body so readers can see what is Human and what is AI.",
 						],
 					),
 				],
 			),
-			typedHtml.ul(
-				[typedHtml.Class("grid gap-3 md:grid-cols-2")],
-				post.attribution.map((item) => provenanceRowView(item)),
+			typedHtml.div(
+				[typedHtml.Class("flex flex-wrap gap-2")],
+				post.attribution.map((item) => provenancePillView(item)),
 			),
 		],
 	);
@@ -99,23 +63,14 @@ const sectionLabelView = (section: PostSection): Html => {
 		[
 			typedHtml.span(
 				[typedHtml.Class(provenancePillClass)],
-				[provenanceLabel(section.provenance.kind)],
-			),
-			typedHtml.span(
-				[
-					typedHtml.Class(
-						"text-xs font-semibold uppercase tracking-[0.12em] text-neutral-500 dark:text-zinc-400",
-					),
-				],
-				[section.provenance.area],
+				[section.provenance],
 			),
 		],
 	);
 };
 
 const isAiProvenance = (section: PostSection): boolean =>
-	section.provenance.kind === "ai-assisted" ||
-	section.provenance.kind === "ai-generated";
+	section.provenance === "AI";
 
 const sectionContainerClass = (section: PostSection): string =>
 	isAiProvenance(section) ? `${hotPinkBoundaryClass} grid gap-3` : "grid gap-3";
@@ -185,7 +140,7 @@ const interactiveSectionView = (
 					),
 				],
 			),
-			renderCodexComponent(section),
+			renderInteractiveComponent(section),
 		],
 	);
 };

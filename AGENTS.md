@@ -5,7 +5,7 @@
 - Avoid nested ternaries. Prefer named helper functions or straightforward `if` blocks; do not use an IIFE just to preserve expression style unless it genuinely improves readability.
 - Keep `UBIQUITOUS_LANGUAGE.md` up-to-date. Collapse synonyms, flag ambiguous language and overloaded terminology. NEVER update the file without running it by the user first (e.g. "Can I add term x, y, z to `UBIQUITOUS_LANGUAGE.md`?", "I've noticed ..., should we tighten up the language around ...?", etc.).
 - You and the user should police eachother (e.g. "Did you mean ...?") when conversations, documentation, and code no longer reflect a shared vocab.
-- Every blog post must render a post-level provenance summary before content and section-level provenance labels beside interactive or generated sections. Apply the hot pink boundary only to AI-assisted or AI-generated sections; do not wrap human-authored sections in that boundary.
+- Every blog post must render a post-level provenance summary before content and section-level provenance labels beside each section. Apply the hot pink boundary only to AI sections; do not wrap Human sections in that boundary.
 - Reference the git submodules in `reference_repositories` for best practices, usage examples, and documentation for the frameworks and packages we use.
 - Track Architecture Decisions using the local [ADR format](.agents/skills/grill-with-docs/ADR-FORMAT.md).
 - Tracked work lives as markdown under `issues/` (not GitHub Issues). See `issues/README.md` and `.agents/skills/issue-tracker.md`.

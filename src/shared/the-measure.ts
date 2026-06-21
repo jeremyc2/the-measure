@@ -1,28 +1,6 @@
 import { Schema } from "effect";
 
-export const ProvenanceKindSchema = Schema.Literals([
-	"ai-assisted",
-	"ai-generated",
-	"human-authored",
-]);
-
-export type ProvenanceKind = typeof ProvenanceKindSchema.Type;
-
-export const ContributionAreaSchema = Schema.Literals([
-	"code",
-	"interactive",
-	"media",
-	"prose",
-	"structure",
-]);
-
-export type ContributionArea = typeof ContributionAreaSchema.Type;
-
-export const ProvenanceSchema = Schema.Struct({
-	area: ContributionAreaSchema,
-	kind: ProvenanceKindSchema,
-	note: Schema.NonEmptyString,
-});
+export const ProvenanceSchema = Schema.Literals(["AI", "Human"]);
 
 export type Provenance = typeof ProvenanceSchema.Type;
 
@@ -76,18 +54,6 @@ export const BlogPostSchema = Schema.Struct({
 });
 
 export type BlogPost = typeof BlogPostSchema.Type;
-
-export const provenanceLabel = (kind: ProvenanceKind): string => {
-	if (kind === "human-authored") {
-		return "Human authored";
-	}
-
-	if (kind === "ai-assisted") {
-		return "AI assisted";
-	}
-
-	return "AI generated";
-};
 
 export const summarizePost = (post: BlogPost): BlogPostSummary => ({
 	attribution: post.attribution,

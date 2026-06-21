@@ -3,7 +3,9 @@ import type { InteractiveSection } from "../../shared/the-measure";
 import type { Message } from "../app/messages";
 import { provenancePillClass, surfaceCardClass } from "../shared-ui";
 
-export const renderCodexComponent = (section: InteractiveSection): Html => {
+export const renderInteractiveComponent = (
+	section: InteractiveSection,
+): Html => {
 	const typedHtml = html<Message>();
 
 	return typedHtml.div(
@@ -14,7 +16,7 @@ export const renderCodexComponent = (section: InteractiveSection): Html => {
 				[
 					typedHtml.span(
 						[typedHtml.Class(provenancePillClass)],
-						["Codex component slot"],
+						["Interactive component slot"],
 					),
 					typedHtml.code(
 						[

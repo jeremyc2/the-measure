@@ -1,6 +1,5 @@
 import { type Html, html } from "foldkit/html";
 import type { BlogPostSummary } from "../../../shared/the-measure";
-import { provenanceLabel } from "../../../shared/the-measure";
 import { PostRoute, routeHref } from "../../routing";
 import {
 	displayTitleClass,
@@ -23,10 +22,7 @@ export const postCardView = (post: BlogPostSummary): Html => {
 			typedHtml.div(
 				[typedHtml.Class("flex flex-wrap gap-2")],
 				post.attribution.map((item) =>
-					typedHtml.span(
-						[typedHtml.Class(provenancePillClass)],
-						[provenanceLabel(item.kind)],
-					),
+					typedHtml.span([typedHtml.Class(provenancePillClass)], [item]),
 				),
 			),
 			typedHtml.div(
@@ -103,7 +99,7 @@ export const postsView = (model: Model): Html => {
 					[
 						model.catalogLoadStatus === "loading"
 							? "Loading the post catalog..."
-							: "Add the first post only when its provenance summary, section labels, and interactive boundaries are ready.",
+							: "Add the first post only when its provenance summary, section labels, and AI boundaries are ready.",
 					],
 				),
 			],

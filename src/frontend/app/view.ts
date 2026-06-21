@@ -45,7 +45,7 @@ const pageSubtitle = (model: Model): string | undefined => {
 	}
 
 	if (isMethodRoute(model.route)) {
-		return "How posts declare human authorship, AI assistance, generated sections, and local interactive components.";
+		return "How posts mark Human and AI sections.";
 	}
 
 	return undefined;
