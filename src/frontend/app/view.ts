@@ -1,35 +1,35 @@
 import { type Document, type Html, html } from "foldkit/html";
 import {
+	isEssayRoute,
+	isEssaysRoute,
 	isHomeRoute,
 	isMethodRoute,
-	isPostRoute,
-	isPostsRoute,
 } from "../routing";
 import { appShellClass } from "../shared-ui";
 import type { Message } from "./messages";
 import type { Model } from "./model";
+import { essayView } from "./views/essay";
+import { essaysView } from "./views/essays";
 import { homeView } from "./views/home";
 import { headerView } from "./views/layout";
 import { methodView } from "./views/method";
 import { notFoundView } from "./views/not-found";
-import { postView } from "./views/post";
-import { postsView } from "./views/posts";
 
 const pageTitle = (model: Model): string => {
 	if (isHomeRoute(model.route)) {
 		return "The Measure";
 	}
 
-	if (isPostsRoute(model.route)) {
-		return "Posts";
+	if (isEssaysRoute(model.route)) {
+		return "Essays";
 	}
 
 	if (isMethodRoute(model.route)) {
 		return "Method";
 	}
 
-	if (isPostRoute(model.route)) {
-		return model.activePost?.title ?? "Post";
+	if (isEssayRoute(model.route)) {
+		return model.activeEssay?.title ?? "Essay";
 	}
 
 	return "Not found";
@@ -40,12 +40,12 @@ const pageSubtitle = (model: Model): string | undefined => {
 		return "Smart reads, sharp takes, questions and answers, interactive playgrounds... follow my personal reading journey.";
 	}
 
-	if (isPostsRoute(model.route)) {
+	if (isEssaysRoute(model.route)) {
 		return "Future essays will appear here once they have provenance metadata and section boundaries.";
 	}
 
 	if (isMethodRoute(model.route)) {
-		return "How posts mark Human and AI sections.";
+		return "How essays mark Human and AI sections.";
 	}
 
 	return undefined;
@@ -56,16 +56,16 @@ const pageBodyContent = (model: Model): Html => {
 		return homeView(model);
 	}
 
-	if (isPostsRoute(model.route)) {
-		return postsView(model);
+	if (isEssaysRoute(model.route)) {
+		return essaysView(model);
 	}
 
 	if (isMethodRoute(model.route)) {
 		return methodView();
 	}
 
-	if (isPostRoute(model.route)) {
-		return postView(model);
+	if (isEssayRoute(model.route)) {
+		return essayView(model);
 	}
 
 	return notFoundView(model);

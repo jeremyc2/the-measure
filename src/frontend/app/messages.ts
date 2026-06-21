@@ -1,10 +1,7 @@
 import { Schema } from "effect";
 import { Navigation, Url } from "foldkit";
 import { m as createMessage } from "foldkit/message";
-import {
-	BlogPostSchema,
-	BlogPostSummarySchema,
-} from "../../shared/the-measure";
+import { EssaySchema, EssaySummarySchema } from "../../shared/the-measure";
 
 export const ClickedToggleColorScheme = createMessage(
 	"ClickedToggleColorScheme",
@@ -19,19 +16,19 @@ export const SucceededNavigation = createMessage("SucceededNavigation");
 export const FailedNavigation = createMessage("FailedNavigation", {
 	message: Schema.String,
 });
-export const SucceededPostCatalogLoad = createMessage(
-	"SucceededPostCatalogLoad",
+export const SucceededEssayCatalogLoad = createMessage(
+	"SucceededEssayCatalogLoad",
 	{
-		posts: Schema.Array(BlogPostSummarySchema),
+		essays: Schema.Array(EssaySummarySchema),
 	},
 );
-export const FailedPostCatalogLoad = createMessage("FailedPostCatalogLoad", {
+export const FailedEssayCatalogLoad = createMessage("FailedEssayCatalogLoad", {
 	message: Schema.String,
 });
-export const SucceededPostLoad = createMessage("SucceededPostLoad", {
-	post: BlogPostSchema,
+export const SucceededEssayLoad = createMessage("SucceededEssayLoad", {
+	essay: EssaySchema,
 });
-export const FailedPostLoad = createMessage("FailedPostLoad", {
+export const FailedEssayLoad = createMessage("FailedEssayLoad", {
 	message: Schema.String,
 });
 
@@ -41,10 +38,10 @@ export const Message = Schema.Union([
 	RequestedUrl,
 	SucceededNavigation,
 	FailedNavigation,
-	SucceededPostCatalogLoad,
-	FailedPostCatalogLoad,
-	SucceededPostLoad,
-	FailedPostLoad,
+	SucceededEssayCatalogLoad,
+	FailedEssayCatalogLoad,
+	SucceededEssayLoad,
+	FailedEssayLoad,
 ]);
 
 export type Message = typeof Message.Type;

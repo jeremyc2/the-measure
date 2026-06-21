@@ -2,39 +2,39 @@ import { Predicate, pipe, Schema } from "effect";
 import { Route, type Url } from "foldkit";
 
 export const HomeRoute = Route.r("HomeRoute");
-export const PostsRoute = Route.r("PostsRoute");
+export const EssaysRoute = Route.r("EssaysRoute");
 export const MethodRoute = Route.r("MethodRoute");
-export const PostRoute = Route.r("PostRoute", { slug: Schema.String });
+export const EssayRoute = Route.r("EssayRoute", { slug: Schema.String });
 export const NotFoundRoute = Route.r("NotFoundRoute", { path: Schema.String });
 
 export const AppRouteSchema = Schema.Union([
 	HomeRoute,
-	PostsRoute,
+	EssaysRoute,
 	MethodRoute,
-	PostRoute,
+	EssayRoute,
 	NotFoundRoute,
 ]);
 
 export type AppRoute = typeof AppRouteSchema.Type;
 
 export const isHomeRoute = Predicate.isTagged("HomeRoute");
-export const isPostsRoute = Predicate.isTagged("PostsRoute");
+export const isEssaysRoute = Predicate.isTagged("EssaysRoute");
 export const isMethodRoute = Predicate.isTagged("MethodRoute");
-export const isPostRoute = Predicate.isTagged("PostRoute");
+export const isEssayRoute = Predicate.isTagged("EssayRoute");
 export const isNotFoundRoute = Predicate.isTagged("NotFoundRoute");
 
 const homeRouter = pipe(Route.root, Route.mapTo(HomeRoute));
-const postsRouter = pipe(Route.literal("posts"), Route.mapTo(PostsRoute));
+const essaysRouter = pipe(Route.literal("essays"), Route.mapTo(EssaysRoute));
 const methodRouter = pipe(Route.literal("method"), Route.mapTo(MethodRoute));
-const postRouter = pipe(
-	Route.literal("posts"),
+const essayRouter = pipe(
+	Route.literal("essays"),
 	Route.slash(Route.string("slug")),
-	Route.mapTo(PostRoute),
+	Route.mapTo(EssayRoute),
 );
 
 const appRouteParser = Route.oneOf(
-	postRouter,
-	postsRouter,
+	essayRouter,
+	essaysRouter,
 	methodRouter,
 	homeRouter,
 );
@@ -42,12 +42,12 @@ const appRouteParser = Route.oneOf(
 const parseAppRoute = Route.parseUrlWithFallback(appRouteParser, NotFoundRoute);
 
 export const routeHref = (route: AppRoute): string => {
-	if (isPostRoute(route)) {
-		return postRouter({ slug: route.slug });
+	if (isEssayRoute(route)) {
+		return essayRouter({ slug: route.slug });
 	}
 
-	if (isPostsRoute(route)) {
-		return postsRouter();
+	if (isEssaysRoute(route)) {
+		return essaysRouter();
 	}
 
 	if (isMethodRoute(route)) {

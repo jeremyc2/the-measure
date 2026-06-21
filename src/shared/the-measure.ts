@@ -25,14 +25,14 @@ export const InteractiveSectionSchema = Schema.Struct({
 
 export type InteractiveSection = typeof InteractiveSectionSchema.Type;
 
-export const PostSectionSchema = Schema.Union([
+export const EssaySectionSchema = Schema.Union([
 	ProseSectionSchema,
 	InteractiveSectionSchema,
 ]);
 
-export type PostSection = typeof PostSectionSchema.Type;
+export type EssaySection = typeof EssaySectionSchema.Type;
 
-export const BlogPostSummarySchema = Schema.Struct({
+export const EssaySummarySchema = Schema.Struct({
 	attribution: Schema.Array(ProvenanceSchema),
 	backgroundClass: Schema.NonEmptyString,
 	publishedAt: Schema.optional(Schema.NonEmptyString),
@@ -41,25 +41,25 @@ export const BlogPostSummarySchema = Schema.Struct({
 	title: Schema.NonEmptyString,
 });
 
-export type BlogPostSummary = typeof BlogPostSummarySchema.Type;
+export type EssaySummary = typeof EssaySummarySchema.Type;
 
-export const BlogPostSchema = Schema.Struct({
+export const EssaySchema = Schema.Struct({
 	attribution: Schema.Array(ProvenanceSchema),
 	backgroundClass: Schema.NonEmptyString,
 	publishedAt: Schema.optional(Schema.NonEmptyString),
-	sections: Schema.Array(PostSectionSchema),
+	sections: Schema.Array(EssaySectionSchema),
 	slug: Schema.NonEmptyString,
 	summary: Schema.optional(Schema.NonEmptyString),
 	title: Schema.NonEmptyString,
 });
 
-export type BlogPost = typeof BlogPostSchema.Type;
+export type Essay = typeof EssaySchema.Type;
 
-export const summarizePost = (post: BlogPost): BlogPostSummary => ({
-	attribution: post.attribution,
-	backgroundClass: post.backgroundClass,
-	publishedAt: post.publishedAt,
-	slug: post.slug,
-	summary: post.summary,
-	title: post.title,
+export const summarizeEssay = (essay: Essay): EssaySummary => ({
+	attribution: essay.attribution,
+	backgroundClass: essay.backgroundClass,
+	publishedAt: essay.publishedAt,
+	slug: essay.slug,
+	summary: essay.summary,
+	title: essay.title,
 });

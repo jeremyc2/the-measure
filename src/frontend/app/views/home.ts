@@ -1,5 +1,5 @@
 import { type Html, html } from "foldkit/html";
-import { MethodRoute, PostsRoute, routeHref } from "../../routing";
+import { EssaysRoute, MethodRoute, routeHref } from "../../routing";
 import {
 	displayTitleClass,
 	hotPinkBoundaryClass,
@@ -9,26 +9,26 @@ import {
 } from "../../shared-ui";
 import type { Message } from "../messages";
 import type { Model } from "../model";
-import { postCardView } from "./posts";
+import { essayCardView } from "./essays";
 
-const emptyPostsMessage = (model: Model): string => {
+const emptyEssaysMessage = (model: Model): string => {
 	if (model.catalogLoadStatus === "loading") {
-		return "Loading the post catalog...";
+		return "Loading the essay catalog...";
 	}
 
-	return "No blog posts have been published in this scaffold yet.";
+	return "No essays have been published in this scaffold yet.";
 };
 
-const latestPostsContent = (
+const latestEssaysContent = (
 	model: Model,
-	previewPosts: Model["posts"],
+	previewEssays: Model["essays"],
 ): Html => {
 	const typedHtml = html<Message>();
 
-	if (previewPosts.length > 0) {
+	if (previewEssays.length > 0) {
 		return typedHtml.div(
 			[typedHtml.Class("grid gap-4 md:grid-cols-3")],
-			previewPosts.map((post) => postCardView(post)),
+			previewEssays.map((essay) => essayCardView(essay)),
 		);
 	}
 
@@ -41,7 +41,7 @@ const latestPostsContent = (
 						"text-sm leading-6 text-neutral-600 dark:text-zinc-300",
 					),
 				],
-				[emptyPostsMessage(model)],
+				[emptyEssaysMessage(model)],
 			),
 		],
 	);
@@ -49,7 +49,7 @@ const latestPostsContent = (
 
 export const homeView = (model: Model): Html => {
 	const typedHtml = html<Message>();
-	const previewPosts = model.posts.slice(0, 3);
+	const previewEssays = model.essays.slice(0, 3);
 
 	return typedHtml.div(
 		[typedHtml.Class("grid gap-8")],
@@ -88,9 +88,9 @@ export const homeView = (model: Model): Html => {
 									typedHtml.a(
 										[
 											typedHtml.Class(primaryButtonClass),
-											typedHtml.Href(routeHref(PostsRoute())),
+											typedHtml.Href(routeHref(EssaysRoute())),
 										],
-										["View posts"],
+										["View essays"],
 									),
 									typedHtml.a(
 										[
@@ -116,7 +116,7 @@ export const homeView = (model: Model): Html => {
 										"text-xs font-bold uppercase tracking-[0.18em] text-pink-700 dark:text-pink-200",
 									),
 								],
-								["Post boundary preview"],
+								["Essay boundary preview"],
 							),
 							typedHtml.p(
 								[
@@ -142,20 +142,20 @@ export const homeView = (model: Model): Html => {
 										`${displayTitleClass} text-2xl text-neutral-950 dark:text-zinc-100`,
 									),
 								],
-								["Latest posts"],
+								["Latest essays"],
 							),
 							typedHtml.a(
 								[
 									typedHtml.Class(
 										"text-sm font-semibold text-pink-700 hover:text-pink-600 dark:text-pink-300 dark:hover:text-pink-200",
 									),
-									typedHtml.Href(routeHref(PostsRoute())),
+									typedHtml.Href(routeHref(EssaysRoute())),
 								],
-								["All posts"],
+								["All essays"],
 							),
 						],
 					),
-					latestPostsContent(model, previewPosts),
+					latestEssaysContent(model, previewEssays),
 				],
 			),
 		],

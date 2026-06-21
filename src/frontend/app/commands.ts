@@ -1,14 +1,14 @@
 import { Effect, Schema } from "effect";
 import { Command, Navigation, Url } from "foldkit";
-import { PostCatalog } from "../services/PostCatalog/PostCatalog";
+import { EssayCatalog } from "../services/EssayCatalog/EssayCatalog";
 import type { Message } from "./messages";
 import {
+	FailedEssayCatalogLoad,
+	FailedEssayLoad,
 	FailedNavigation,
-	FailedPostCatalogLoad,
-	FailedPostLoad,
+	SucceededEssayCatalogLoad,
+	SucceededEssayLoad,
 	SucceededNavigation,
-	SucceededPostCatalogLoad,
-	SucceededPostLoad,
 } from "./messages";
 import type { AppServices } from "./model";
 
@@ -45,37 +45,37 @@ export const LoadExternalUrl = Command.define(
 	),
 );
 
-export const LoadPostCatalog = Command.define(
-	"LoadPostCatalog",
-	SucceededPostCatalogLoad,
-	FailedPostCatalogLoad,
+export const LoadEssayCatalog = Command.define(
+	"LoadEssayCatalog",
+	SucceededEssayCatalogLoad,
+	FailedEssayCatalogLoad,
 )(
 	Effect.gen(function* () {
-		const postCatalog = yield* PostCatalog;
-		return yield* postCatalog.list.pipe(
+		const essayCatalog = yield* EssayCatalog;
+		return yield* essayCatalog.list.pipe(
 			Effect.match({
 				onFailure: () =>
-					FailedPostCatalogLoad({
-						message: "The post catalog failed to load.",
+					FailedEssayCatalogLoad({
+						message: "The essay catalog failed to load.",
 					}),
-				onSuccess: (posts) => SucceededPostCatalogLoad({ posts }),
+				onSuccess: (essays) => SucceededEssayCatalogLoad({ essays }),
 			}),
 		);
 	}),
 );
 
-export const LoadPost = Command.define(
-	"LoadPost",
+export const LoadEssay = Command.define(
+	"LoadEssay",
 	{ slug: Schema.String },
-	SucceededPostLoad,
-	FailedPostLoad,
+	SucceededEssayLoad,
+	FailedEssayLoad,
 )(
 	Effect.fnUntraced(function* ({ slug }) {
-		const postCatalog = yield* PostCatalog;
-		return yield* postCatalog.findBySlug(slug).pipe(
+		const essayCatalog = yield* EssayCatalog;
+		return yield* essayCatalog.findBySlug(slug).pipe(
 			Effect.match({
-				onFailure: (error) => FailedPostLoad({ message: error.message }),
-				onSuccess: (post) => SucceededPostLoad({ post }),
+				onFailure: (error) => FailedEssayLoad({ message: error.message }),
+				onSuccess: (essay) => SucceededEssayLoad({ essay }),
 			}),
 		);
 	}),

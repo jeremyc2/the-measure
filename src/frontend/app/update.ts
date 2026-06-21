@@ -1,16 +1,16 @@
 import { Match, Predicate } from "effect";
 import type { Command } from "foldkit";
 import { evo as evolve } from "foldkit/struct";
-import { type AppRoute, isPostRoute, parseUrlRoute } from "../routing";
+import { type AppRoute, isEssayRoute, parseUrlRoute } from "../routing";
 import { toggleColorScheme } from "../theme";
-import { LoadExternalUrl, LoadPost, PushUrl } from "./commands";
+import { LoadEssay, LoadExternalUrl, PushUrl } from "./commands";
 import type { Message } from "./messages";
 import type { AppServices, Model } from "./model";
 
 const routeCommands = (
 	route: AppRoute,
 ): ReadonlyArray<Command.Command<Message, never, AppServices>> =>
-	isPostRoute(route) ? [LoadPost({ slug: route.slug })] : [];
+	isEssayRoute(route) ? [LoadEssay({ slug: route.slug })] : [];
 
 export const update = (
 	model: Model,
@@ -30,9 +30,9 @@ export const update = (
 			ChangedUrl: ({ url }) => {
 				const nextRoute = parseUrlRoute(url);
 				const nextModel = evolve(model, {
-					activePost: () => undefined,
+					activeEssay: () => undefined,
 					loadMessage: () => undefined,
-					postLoadStatus: () => (isPostRoute(nextRoute) ? "loading" : "idle"),
+					essayLoadStatus: () => (isEssayRoute(nextRoute) ? "loading" : "idle"),
 					route: () => nextRoute,
 				});
 
@@ -48,18 +48,18 @@ export const update = (
 				evolve(model, { loadMessage: () => message }),
 				[],
 			],
-			FailedPostCatalogLoad: ({ message }) => [
+			FailedEssayCatalogLoad: ({ message }) => [
 				evolve(model, {
 					catalogLoadStatus: () => "failed" as const,
 					loadMessage: () => message,
 				}),
 				[],
 			],
-			FailedPostLoad: ({ message }) => [
+			FailedEssayLoad: ({ message }) => [
 				evolve(model, {
-					activePost: () => undefined,
+					activeEssay: () => undefined,
 					loadMessage: () => message,
-					postLoadStatus: () => "failed" as const,
+					essayLoadStatus: () => "failed" as const,
 				}),
 				[],
 			],
@@ -68,18 +68,18 @@ export const update = (
 					? [model, [PushUrl({ url: request.url })]]
 					: [model, [LoadExternalUrl({ href: request.href })]],
 			SucceededNavigation: () => [model, []],
-			SucceededPostCatalogLoad: ({ posts }) => [
+			SucceededEssayCatalogLoad: ({ essays }) => [
 				evolve(model, {
 					catalogLoadStatus: () => "ready" as const,
-					posts: () => posts,
+					essays: () => essays,
 				}),
 				[],
 			],
-			SucceededPostLoad: ({ post }) => [
+			SucceededEssayLoad: ({ essay }) => [
 				evolve(model, {
-					activePost: () => post,
+					activeEssay: () => essay,
 					loadMessage: () => undefined,
-					postLoadStatus: () => "ready" as const,
+					essayLoadStatus: () => "ready" as const,
 				}),
 				[],
 			],

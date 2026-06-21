@@ -32,5 +32,5 @@ vercel deploy --prod
 After deployment, verify:
 
 - `/` serves the static shell.
-- `/posts` refreshes successfully through the rewrite.
+- `/essays` refreshes successfully through the rewrite.
 - `/assets/index.js` and `/assets/styles.css` are served from the static output.

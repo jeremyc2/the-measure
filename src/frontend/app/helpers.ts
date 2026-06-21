@@ -1,13 +1,13 @@
-import { type AppRoute, isPostRoute } from "../routing";
+import { type AppRoute, isEssayRoute } from "../routing";
 import { resolveColorScheme } from "../theme";
 import type { Model } from "./model";
 
 export const emptyModelFields = (route: AppRoute): Model => ({
-	activePost: undefined,
+	activeEssay: undefined,
 	catalogLoadStatus: "loading",
 	colorScheme: resolveColorScheme(),
 	loadMessage: undefined,
-	postLoadStatus: isPostRoute(route) ? "loading" : "idle",
-	posts: [],
+	essayLoadStatus: isEssayRoute(route) ? "loading" : "idle",
+	essays: [],
 	route,
 });

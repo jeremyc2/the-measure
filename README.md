@@ -37,12 +37,12 @@ Open `http://localhost:3000`.
 
 ## Provenance Rules
 
-Every future blog post should make authorship visible in two places:
+Every future essay should make authorship visible in two places:
 
-- A post-level provenance summary at the beginning of the post.
+- An essay-level provenance summary at the beginning of the essay.
 - A section-level provenance label for each section.
 
-AI post sections are rendered inside a hot pink boundary by design. The boundary is not decoration; it is part of the site's language for separating human work from human-reviewed AI work.
+AI essay sections are rendered inside a hot pink boundary by design. The boundary is not decoration; it is part of the site's language for separating human work from human-reviewed AI work.
 
 ## Reference Repos And Skills
 
@@ -67,9 +67,9 @@ Local adopted skills live under `.agents/skills/`, adapted for this book-site do
 - `src/frontend/index.ts`: browser entrypoint and Foldkit runtime setup.
 - `src/frontend/app/`: Foldkit model, messages, commands, update, and route views.
 - `src/frontend/services/`: browser Effect services, with one PascalCase folder per service.
-- `src/frontend/posts/`: static post catalog. It starts empty on purpose.
-- `src/frontend/components/`: local interactive section renderers for future posts.
-- `src/shared/`: shared schemas and types for posts, sections, and provenance.
+- `src/frontend/essays/`: static essay catalog. It starts empty on purpose.
+- `src/frontend/components/`: local interactive section renderers for future essays.
+- `src/shared/`: shared schemas and types for essays, sections, and provenance.
 - `src/dev-server.ts`: local static server for development.
 - `src/styles.css`: Tailwind v4 stylesheet entry.
 - `reference_repositories/`: submodules used for upstream examples and agent-skill ideas.

@@ -1,12 +1,12 @@
 import { type Html, html } from "foldkit/html";
 import { bookOpenIcon, moonIcon, sunIcon } from "../../icons";
 import {
+	EssaysRoute,
 	HomeRoute,
+	isEssaysRoute,
 	isHomeRoute,
 	isMethodRoute,
-	isPostsRoute,
 	MethodRoute,
-	PostsRoute,
 	routeHref,
 } from "../../routing";
 import { displayTitleClass } from "../../shared-ui";
@@ -58,10 +58,10 @@ const navView = (model: Model): Html => {
 			),
 			typedHtml.a(
 				[
-					typedHtml.Class(navLinkClass(isPostsRoute(model.route))),
-					typedHtml.Href(routeHref(PostsRoute())),
+					typedHtml.Class(navLinkClass(isEssaysRoute(model.route))),
+					typedHtml.Href(routeHref(EssaysRoute())),
 				],
-				["Posts"],
+				["Essays"],
 			),
 			typedHtml.a(
 				[

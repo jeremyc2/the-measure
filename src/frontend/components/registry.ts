@@ -35,7 +35,7 @@ export const renderInteractiveComponent = (
 					),
 				],
 				[
-					"This local interactive section has a typed place in the post contract. Add its Foldkit renderer here when the post exists.",
+					"This local interactive section has a typed place in the essay contract. Add its Foldkit renderer here when the essay exists.",
 				],
 			),
 		],

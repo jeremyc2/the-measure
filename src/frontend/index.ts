@@ -4,7 +4,7 @@ import { ChangedUrl, Message, RequestedUrl } from "./app/messages";
 import { Model } from "./app/model";
 import { update } from "./app/update";
 import { view } from "./app/view";
-import { PostCatalog } from "./services/PostCatalog/PostCatalog";
+import { EssayCatalog } from "./services/EssayCatalog/EssayCatalog";
 
 const program = Runtime.makeApplication({
 	Model,
@@ -19,7 +19,7 @@ const program = Runtime.makeApplication({
 		show: "Always",
 	},
 	init,
-	resources: PostCatalog.layer,
+	resources: EssayCatalog.layer,
 	routing: {
 		onUrlChange: (url) => ChangedUrl({ url }),
 		onUrlRequest: (request) => RequestedUrl({ request }),

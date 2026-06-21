@@ -1,20 +1,17 @@
 import { Schema } from "effect";
-import {
-	BlogPostSchema,
-	BlogPostSummarySchema,
-} from "../../shared/the-measure";
+import { EssaySchema, EssaySummarySchema } from "../../shared/the-measure";
 import { AppRouteSchema } from "../routing";
-import type { PostCatalog } from "../services/PostCatalog/PostCatalog";
+import type { EssayCatalog } from "../services/EssayCatalog/EssayCatalog";
 
-export type AppServices = PostCatalog;
+export type AppServices = EssayCatalog;
 
 export const Model = Schema.Struct({
-	activePost: Schema.UndefinedOr(BlogPostSchema),
+	activeEssay: Schema.UndefinedOr(EssaySchema),
 	catalogLoadStatus: Schema.Literals(["failed", "loading", "ready"]),
 	colorScheme: Schema.Literals(["dark", "light"]),
 	loadMessage: Schema.UndefinedOr(Schema.String),
-	postLoadStatus: Schema.Literals(["failed", "idle", "loading", "ready"]),
-	posts: Schema.Array(BlogPostSummarySchema),
+	essayLoadStatus: Schema.Literals(["failed", "idle", "loading", "ready"]),
+	essays: Schema.Array(EssaySummarySchema),
 	route: AppRouteSchema,
 });
 

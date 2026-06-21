@@ -1,5 +1,5 @@
 import { type Html, html } from "foldkit/html";
-import type { BlogPost, PostSection } from "../../../shared/the-measure";
+import type { Essay, EssaySection } from "../../../shared/the-measure";
 import { renderInteractiveComponent } from "../../components/registry";
 import {
 	displayTitleClass,
@@ -10,15 +10,13 @@ import {
 import type { Message } from "../messages";
 import type { Model } from "../model";
 
-const provenancePillView = (
-	provenance: BlogPost["attribution"][number],
-): Html => {
+const provenancePillView = (provenance: Essay["attribution"][number]): Html => {
 	const typedHtml = html<Message>();
 
 	return typedHtml.span([typedHtml.Class(provenancePillClass)], [provenance]);
 };
 
-const provenanceSummaryView = (post: BlogPost): Html => {
+const provenanceSummaryView = (essay: Essay): Html => {
 	const typedHtml = html<Message>();
 
 	return typedHtml.aside(
@@ -42,20 +40,20 @@ const provenanceSummaryView = (post: BlogPost): Html => {
 							),
 						],
 						[
-							"This summary is required before the post body so readers can see what is Human and what is AI.",
+							"This summary is required before the essay body so readers can see what is Human and what is AI.",
 						],
 					),
 				],
 			),
 			typedHtml.div(
 				[typedHtml.Class("flex flex-wrap gap-2")],
-				post.attribution.map((item) => provenancePillView(item)),
+				essay.attribution.map((item) => provenancePillView(item)),
 			),
 		],
 	);
 };
 
-const sectionLabelView = (section: PostSection): Html => {
+const sectionLabelView = (section: EssaySection): Html => {
 	const typedHtml = html<Message>();
 
 	return typedHtml.div(
@@ -69,14 +67,14 @@ const sectionLabelView = (section: PostSection): Html => {
 	);
 };
 
-const isAiProvenance = (section: PostSection): boolean =>
+const isAiProvenance = (section: EssaySection): boolean =>
 	section.provenance === "AI";
 
-const sectionContainerClass = (section: PostSection): string =>
+const sectionContainerClass = (section: EssaySection): string =>
 	isAiProvenance(section) ? `${hotPinkBoundaryClass} grid gap-3` : "grid gap-3";
 
 const proseSectionView = (
-	section: Extract<PostSection, { kind: "prose" }>,
+	section: Extract<EssaySection, { kind: "prose" }>,
 ): Html => {
 	const typedHtml = html<Message>();
 
@@ -111,7 +109,7 @@ const proseSectionView = (
 };
 
 const interactiveSectionView = (
-	section: Extract<PostSection, { kind: "interactive" }>,
+	section: Extract<EssaySection, { kind: "interactive" }>,
 ): Html => {
 	const typedHtml = html<Message>();
 
@@ -145,16 +143,16 @@ const interactiveSectionView = (
 	);
 };
 
-const sectionView = (section: PostSection): Html =>
+const sectionView = (section: EssaySection): Html =>
 	section.kind === "interactive"
 		? interactiveSectionView(section)
 		: proseSectionView(section);
 
-const readyPostView = (post: BlogPost): Html => {
+const readyEssayView = (essay: Essay): Html => {
 	const typedHtml = html<Message>();
 
 	return typedHtml.article(
-		[typedHtml.Class(`${post.backgroundClass} grid gap-8 rounded-lg`)],
+		[typedHtml.Class(`${essay.backgroundClass} grid gap-8 rounded-lg`)],
 		[
 			typedHtml.header(
 				[typedHtml.Class("grid gap-3")],
@@ -165,9 +163,9 @@ const readyPostView = (post: BlogPost): Html => {
 								`${displayTitleClass} text-3xl text-neutral-950 dark:text-zinc-100`,
 							),
 						],
-						[post.title],
+						[essay.title],
 					),
-					...(post.summary !== undefined
+					...(essay.summary !== undefined
 						? [
 								typedHtml.p(
 									[
@@ -175,42 +173,42 @@ const readyPostView = (post: BlogPost): Html => {
 											"text-base leading-7 text-neutral-700 dark:text-zinc-300",
 										),
 									],
-									[post.summary],
+									[essay.summary],
 								),
 							]
 						: []),
 				],
 			),
-			provenanceSummaryView(post),
+			provenanceSummaryView(essay),
 			typedHtml.div(
 				[typedHtml.Class("grid gap-8")],
-				post.sections.map((section) => sectionView(section)),
+				essay.sections.map((section) => sectionView(section)),
 			),
 		],
 	);
 };
 
-export const postView = (model: Model): Html => {
+export const essayView = (model: Model): Html => {
 	const typedHtml = html<Message>();
 
-	if (model.postLoadStatus === "loading") {
+	if (model.essayLoadStatus === "loading") {
 		return typedHtml.p(
 			[typedHtml.Class("text-sm text-neutral-600 dark:text-zinc-300")],
-			["Loading post..."],
+			["Loading essay..."],
 		);
 	}
 
-	if (model.postLoadStatus === "failed") {
+	if (model.essayLoadStatus === "failed") {
 		return typedHtml.p(
 			[typedHtml.Class("text-sm text-red-700 dark:text-red-300")],
-			[model.loadMessage ?? "Could not load this post."],
+			[model.loadMessage ?? "Could not load this essay."],
 		);
 	}
 
-	return model.activePost !== undefined
-		? readyPostView(model.activePost)
+	return model.activeEssay !== undefined
+		? readyEssayView(model.activeEssay)
 		: typedHtml.p(
 				[typedHtml.Class("text-sm text-neutral-600 dark:text-zinc-300")],
-				["No post is selected."],
+				["No essay is selected."],
 			);
 };
